@@ -32,7 +32,6 @@ kubectl apply -f dashboard_service_account.yaml
 An existing role (to view `kubectl get clusterrole`) is available with the required permissions.
 
 Bind the ClusterRole cluster-admin to the service account:
-```yaml
 ```bash
 kubectl apply -f dashboard_role_binding.yaml
 ```
