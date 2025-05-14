@@ -19,3 +19,6 @@ venv.bak/
 
 .idea
 .vscode
+
+*secret*
+kustomization.y*ml
