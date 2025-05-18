@@ -6,7 +6,7 @@ spec:
   acme:
     # get email from the environment variable
     email: {INSERTEMAIL}
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: acme-cf
     solvers:
