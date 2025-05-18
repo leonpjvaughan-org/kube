@@ -1,0 +1,10 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: internal-pool
+  namespace: default
+spec:
+  addresses: # these should be ips reachable within your network. I am using the same network as my kubernetes cluster (vlan5)
+  - 192.168.5.10-192.168.5.45
+  - 192.168.5.60-192.168.5.200
+  avoidBuggyIPs: true

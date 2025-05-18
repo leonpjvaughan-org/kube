@@ -40,3 +40,9 @@ Then get the token for the service account:
 ```bash
 kubectl -n kubernetes-dashboard create token dashboard-user
 ```
+
+Quickly look at the dashboard:
+```bash
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
+```
+

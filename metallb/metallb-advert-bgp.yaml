@@ -1,0 +1,16 @@
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  name: adv-internal-pool
+spec:
+  ipAddressPools:
+  - internal-pool
+---
+apiVersion: metallb.io/v1beta2
+kind: BGPPeer
+metadata:
+  name: router-peer
+spec:
+  myASN: 64512        # Replace with your local ASN if different
+  peerASN: 65551   # Replace with your router's ASN - you can set this in opnsense
+  peerAddress: 192.168.5.1  # Replace with your router's IP address

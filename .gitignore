@@ -22,3 +22,4 @@ venv.bak/
 
 *secret*
 kustomization.y*ml
+traefik_gateway_api/
