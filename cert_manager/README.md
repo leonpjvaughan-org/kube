@@ -7,14 +7,17 @@ Add the helm repo
 helm repo add jetstack https://charts.jetstack.io --force-update
 ```
 
+To automatically create certificates by annotating Gateway resources, we need to follow these steps:
+
+install v1.5.1 Gateway API bundle
+
+```bash
+kubectl apply -f "https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/standard-install.yaml"
+```
+
 Install cert-manager
 ```bash
-helm install \
-  cert-manager jetstack/cert-manager \
-  --namespace cert-manager \
-  --create-namespace \
-  --version v1.17.2 \
-  --values values.yaml
+helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.17.2 --values values.yaml
 ```
 
 Deploy the Cloudflare issuer. Update the email and create the secret required for the issuer.
@@ -32,7 +35,7 @@ metadata:
   name: domain-gateway #-----------
   annotations:
     # Traefik specific annotations
-    cert-manager.io/issuer: "cloudflare-issuer-cert-manager" # should force the creation of the certificate
+    cert-manager.io/cluster-issuer: "cf-issuer-cm" # name of issuer in cloudflare_issuer.yaml
 spec:
   gatewayClassName: traefik
   listeners:

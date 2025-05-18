@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: example-cert
+  namespace: default # Change to your desired namespace
+spec:
+  secretName: example-tls
+  issuerRef:
+    name: cf-issuer-cm
+    kind: ClusterIssuer
+  commonName: example.yourdomain.com
+  dnsNames:
+  - example.yourdomain.com
+  - www.example.yourdomain.com
+  duration: 2160h # 90 days
+  renewBefore: 360h # 15 days
