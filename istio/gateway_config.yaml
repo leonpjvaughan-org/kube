@@ -1,0 +1,31 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: mydomain-istio-gw  # replace with desired name
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "cf-issuer-cm"  # name of the ClusterIssuer cert-manager/cloudflare_issuer.yaml
+spec:
+  gatewayClassName: istio
+  listeners:
+  - name: web
+    hostname: "*.mydomain.com"  # should match up with the domains you own in Cloudflare (if thats what you're using with cert-manager)
+    port: 80
+    protocol: HTTP
+    allowedRoutes:
+      namespaces:
+        from: All
+  - name: websecure
+    hostname: "*.mydomain.com"
+    port: 443
+    protocol: HTTPS
+    tls:
+      mode: Terminate
+      certificateRefs:
+        - name: wc-mydomain-cert  # replace with desire name
+          group: ""               # empty == core API group
+          kind: Secret  
+          namespace: default
+    allowedRoutes:
+      namespaces:
+        from: All

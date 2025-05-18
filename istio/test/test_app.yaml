@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: web
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+  namespace: web
+spec:
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:alpine
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-server-service
+  namespace: web
+spec:
+  selector:
+    app: web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+  loadBalancerIP: 192.168.5.37
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: web-httproute  # Replace with your desired name
+  namespace: web
+spec:
+  parentRefs:
+    - name: leonpjvaughan-istio-gw  # Replace with your gateway name
+      namespace: default  # dont forget this
+      sectionName: web
+  hostnames:
+    - "test.leonpjvaughan.com" # Replace with your domain
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: web-httpsroute
+  namespace: web
+spec:
+  parentRefs:
+    - name: leonpjvaughan-istio-gw  # Replace with your gateway name
+      namespace: default  # dont forget this
+      sectionName: websecure
+  hostnames:
+    - "test.leonpjvaughan.com" # Replace with your domain
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: web-server-service  # Replace with your service name
+          namespace: web
+          port: 80
