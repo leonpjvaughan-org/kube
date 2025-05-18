@@ -86,6 +86,10 @@ kubectl apply -f metallb-advert-bgp.yaml
 
 The manifest has comments to explain the configuration.
 
+Worth also checking the diagnostics in opnsense to see if the BGP peers were established. Needed to restart the BGP daemon/service (idk) in opnsense to get it to work.
+
+![bgp_opnsense_3.png](./assets/bgp_opnsense_diagnostics.png)
+
 
 # test
 
