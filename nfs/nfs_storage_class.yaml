@@ -4,7 +4,7 @@ metadata:
   name: nfs-csi
 provisioner: nfs.csi.k8s.io
 parameters:
-  server: 192.168.55.5
-  share: /nfs-exports/default
+  server: 192.168.5.55
+  share: /nfs-exports/kube
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
