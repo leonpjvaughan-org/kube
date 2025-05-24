@@ -191,7 +191,11 @@ metadata:
   name: keycloak  # here
 ```
 
-# Potential issues
+# Mapping Keycloak roles to Kubernetes RBAC
+
+see the [oidc-roles](./oidc-roles/README.md) directory for instructions on how to map Keycloak roles to Kubernetes RBAC roles.
+
+# Troubleshooting
 
 If you end up deleting and recreating the Keycloak custom resource, you may encounter issues with the password that was set for the initial admin user. This is because the Keycloak operator does not automatically recreate the initial admin user if it already exists. 
 
