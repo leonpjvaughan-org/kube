@@ -17,3 +17,9 @@ grep operator-sdk_${OS}_${ARCH} checksums.txt | sha256sum -c -
 chmod +x operator-sdk_${OS}_${ARCH} && sudo mv operator-sdk_${OS}_${ARCH} /usr/local/bin/operator-sdk
 operator-sdk olm install
 ```
+
+## Operator group
+
+```shell
+kubectl apply -f global_op_group.yaml
+```

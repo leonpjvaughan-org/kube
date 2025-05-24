@@ -33,7 +33,7 @@ ipvs:
 
 ## Configure metallb
 
-Add an ip address pool to metallb. This is the address range that metallb will use to assign IP addresses to services. The address range should be in the same subnet as the nodes in the cluster
+Add an ip address pool to metallb. This is the address range that metallb will use to assign IP addresses to services. The address range should be in the same subnet as the nodes in the cluster. **Also make sure you adjust the DHCP range in your router to avoid conflicts with the IP addresses assigned by metallb.**
 
 ```shell
 kubectl apply -f metallb-config.yaml
