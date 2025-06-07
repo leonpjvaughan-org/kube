@@ -1,0 +1,40 @@
+
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: kubernetes-dashboard-httproute  # Replace with your desired name
+  namespace: kubernetes-dashboard
+spec:
+  parentRefs:
+    - name: my-domain-istio-gw  # Replace with your gateway name
+      namespace: default  # dont forget this
+      sectionName: web
+  hostnames:
+    - "kube-dashboard.my-domain.com" # Replace with your domain
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: kubernetes-dashboard-httpsroute
+  namespace: kubernetes-dashboard
+spec:
+  parentRefs:
+    - name: my-domain-istio-gw  # Replace with your gateway name
+      namespace: default  # dont forget this
+      sectionName: websecure
+  hostnames:
+    - "kube-dashboard.my-domain.com" # Replace with your domain
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: kubernetes-dashboard-kong-proxy  # Replace with your service name
+          namespace: kubernetes-dashboard
+          port: 80
