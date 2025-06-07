@@ -35,13 +35,6 @@ spec:
                   key: postgres-password
             - name: POSTGRES_DB
               value: keycloak
-          resources:
-            limits:
-              memory: "1Gi"
-              cpu: "500m"
-            requests:
-              memory: "512Mi"
-              cpu: "250m"
   # create a persistent volume claim for the database storage
   volumeClaimTemplates:
     - metadata:
