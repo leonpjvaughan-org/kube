@@ -105,3 +105,17 @@ kubectl get svc -A
 open the external ip in a browser. You should see the nginx welcome page. 
 
 ![bgp_opnsense_2.png](./assets/bgp_opnsense_test.png)
+
+
+# Gotchas
+
+If using BGP and if you are trying to reach a service/ip from the same network as your current machine your machine will try to resolve the IP via ARP and not via BGP. This means that you will not be able to reach the service from your current machine.
+
+Example:
+I have a gateway (*.mydomain.com) that has been assigned an IP of 192.168.5.11 by metallb. I had a BGP advertisement set up for this IP (pool) and it works from devices on other vlans (192.168.10.0/24, 192.168.11.0/24, etc) but didnt work from devices on the same vlan (192.168.5.0/24). 
+
+DNS was correctly resolving the IP to 192.168.5.11 but when I tried to reach any of *.mydomain.com, I would get a timeout.
+
+The issue was that devices in the same vlan were trying to resolve the IP via ARP (layer2) and not via BGP (layer3). To fix this, I added a L2 advertisement for the IP pool in metallb. This way, devices in the same vlan can resolve the IP via ARP and reach the service.
+
+```yaml
