@@ -17,3 +17,4 @@ This repo is a collection of Kubernetes resources and configurations for my home
 6. [keycloak](./keycloak/README.md) - Keycloak for iam. I am using this as my cluster OIDC provider.
 7. [kubernetes Dashboard](./kubernetes_dashboard/README.md) - Kubernetes dashboard setup for managing the cluster. This is useful for monitoring and managing the cluster resources.
 8. [Velero](./velero/README.md) - Velero setup for backing up and restoring Kubernetes resources. This is useful for disaster recovery and backup of the cluster resources.
+9. [observability](./observability/README.md) - (WIP) Observability setup for monitoring and logging in the cluster. This includes Loki for logs, Grafana for graphs, Mimir for metrics, Tempo for traces, Pyroscope for profiling, and Alloy for collection.

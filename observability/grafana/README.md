@@ -91,3 +91,8 @@ change to your domain name etc
 ```bash
 helm upgrade --install grafana grafana/grafana -n observability --values values-secret.yaml
 ```
+
+
+# Check the installation
+
+![Grafana login page](./assets/grafana-login.jpg)
