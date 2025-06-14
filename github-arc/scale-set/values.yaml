@@ -6,6 +6,7 @@ runnerGroup: "KubernetesARC"  # created in https://github.com/organizations/<org
 
 template:
   spec:
+    serviceAccountName: github-runner
     containers:      
     - name: runner
       image: ghcr.io/actions/actions-runner:latest
