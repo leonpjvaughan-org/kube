@@ -1,0 +1,19 @@
+ingress:
+  enabled: false
+
+hostname: "rancher.example.com"
+
+### service ###
+# Override to use NodePort or LoadBalancer service type - default is ClusterIP
+service:
+  type: ""
+  annotations: {}
+  # An optional security setting to disables the HTTP port of the rancher service
+  # When set true, you must also set `ingress.servicePort` to 443 and the appropriate ingress annotation to use HTTPS
+  disableHTTP: false
+
+
+replicas: 3
+
+tls: external
+

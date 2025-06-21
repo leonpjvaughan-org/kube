@@ -1,5 +1,7 @@
 # Instructions
 
+Self-signed docs - [here](https://cert-manager.io/docs/configuration/selfsigned/).
+
 ## Setup instructions for Cert Manager
 
 Add the helm repo
